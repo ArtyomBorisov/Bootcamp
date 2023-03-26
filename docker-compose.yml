@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    build: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3307:3307'
+    networks:
+      - bootcamp_ntwrk
+
+  user_service:
+    build: user_service
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - bootcamp_ntwrk
+    depends_on:
+      - db
+
+networks:
+    bootcamp_ntwrk:
+      name: bootcamp_ntwrk
